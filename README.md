@@ -12,7 +12,7 @@
 
 ## Start
 - 首先通过npm install安装依赖
-- npm run serve来启动web server
+- npm run serve来启动web server（自动生成dist目录）
 - npm run watch来监视文件改动
 - 使用?hyDebug=1参数开启调试模式
 - 业务逻辑文件放在app文件夹，请根据业务模块分子文件夹。
@@ -48,6 +48,12 @@
 
 ## Data
 - query方法，自动带上入口URL中query参数，统一成功和失败的回调，支持缓存
+
+# Structure
+- index.html 入口文件
+- lib 项目底层文件和第三方依赖
+- app 业务代码
+- dist 构建后的代码（自动生成）
 
 # FAQ
 Q: 从/module1/action1&id=123到/module1/action1&id=321会不会重新执行action1方法
