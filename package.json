@@ -1,0 +1,27 @@
+{
+  "name": "hymobile",
+  "version": "1.1.1",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/homkai/HyMobile.git"
+  },
+  "description": "Help to set up your mobile app",
+  "main": "index.html",
+  "scripts": {
+    "serve": "gulp && http-server ./dist -p 8001",
+    "watch": "gulp watch"
+  },
+  "keywords": [
+    "HyMobile"
+  ],
+  "author": "Homkai",
+  "license": "MIT",
+  "devDependencies": {
+    "del": "^2.2.0",
+    "gulp": "^3.9.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-seajs-css": "^1.0.2",
+    "gulp-seajs-dot": "^1.0.3",
+    "http-server": "^0.8.5"
+  }
+}
