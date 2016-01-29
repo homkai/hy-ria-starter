@@ -9,18 +9,27 @@
     <link rel="stylesheet" href="vendor/bootstrap-3.3.6/css/bootstrap.css" />
 </head>
 <body>
-<section id="hy_global_ctn"></section>
-<section id="hy_module_ctn"></section>
+<app></app>
 <script src="vendor/jquery-2.2.0/jquery.js"></script>
 <script src="vendor/bootstrap-3.3.6/js/bootstrap.js"></script>
 <script src="lib/loader/sea-debug.js"></script>
 <script src="lib/loader/loader-config.js"></script>
 <script>
     seajs.use('hy', function(hy){
-        hy.run(function(require){
+        var config = {
+            route: {
+                root:{
+                    module: 'archive/home',
+                    action: 'init'
+                }
+            }
+        };
+        hy.init('app', config, function(require, boot){
             // 这里可以做一些整个APP的初始化工作
-            require.async('_base/view', function(view){
+            require.async(['_base/view', '_base/app'], function (view, app) {
                 view.init();
+                app.init();
+                boot();
             });
         });
     });

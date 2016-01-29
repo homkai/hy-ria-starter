@@ -5,7 +5,7 @@
 define(function(require, exports, module){
 
     module.exports = {
-        run: run,
+        init: init,
         go: goRule,
         goRoot: goRoot,
         getRule: getRule,
@@ -28,7 +28,7 @@ define(function(require, exports, module){
         });
     }
 
-    function run(bindModule, hash){
+    function init(bindModule, hash){
         var cb = function(){
             bindModule();
             listenHashChange(bindModule);

@@ -57,6 +57,13 @@
 ## Data
 - query方法，自动带上入口URL中query参数，统一成功和失败的回调，支持缓存
 
+# Dep Docs
+- [SeaJS](http://seajs.org/)
+- [Bootstrap](http://v3.bootcss.com/)
+- [doT](http://olado.github.io/doT/)
+- [gulp-seajs-css](https://github.com/homkai/gulp-seajs-css)
+- [gulp-seajs-dot](https://github.com/homkai/gulp-seajs-dot)
+
 # FAQ
 Q: 从/module1/action1&id=123到/module1/action1&id=321会不会重新执行action1方法
 

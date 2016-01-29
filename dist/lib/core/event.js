@@ -6,42 +6,42 @@ define(function(require, exports, module){
 
     module.exports = {
         on: on,
-        emit: emit,
+        trigger: trigger,
         off: off,
         onG: onG,
-        emitG: emitG,
+        triggerG: triggerG,
         offG: offG
     };
 
     var HY = window.HY;
 
     function on(event, cb){
-        var $dom = $('#' + HY.config.dom.module);
+        var $dom = $(HY.moduleEventDom);
         $.fn.on.apply($dom, arguments);
     }
 
-    function emit(event, arrArg){
-        var $dom = $('#' + HY.config.dom.module);
+    function trigger(event, arrArg){
+        var $dom = $(HY.moduleEventDom);
         $.fn.trigger.apply($dom, arguments);
     }
 
     function off(event){
-        var $dom = $('#' + HY.config.dom.module);
+        var $dom = $(HY.moduleEventDom);
         $.fn.off.apply($dom, arguments);
     }
 
     function onG(event, cb){
-        var $dom = $('#' + HY.config.dom.global);
+        var $dom = $(HY.rootDom);
         $.fn.on.apply($dom, arguments);
     }
 
-    function emitG(event, arrArg){
-        var $dom = $('#' + HY.config.dom.global);
+    function triggerG(event, arrArg){
+        var $dom = $(HY.rootDom);
         $.fn.trigger.apply($dom, arguments);
     }
 
     function offG(event){
-        var $dom = $('#' + HY.config.dom.global);
+        var $dom = $(HY.rootDom);
         $.fn.off.apply($dom, arguments);
     }
 });

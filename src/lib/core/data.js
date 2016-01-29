@@ -12,13 +12,13 @@ define(function(require, exports, module){
     };
 
     /**
-     * AJAX请求，会携带URL query信息，支持缓存
-     * @param url URL
-     * @param data 要发送的数据，可选
-     * @param cb 请求成功或者失败都是执行这个回调方法
-     * @param cacheTime number|callback
-     * @returns {*}
-     */
+    * AJAX请求，会携带URL query信息，支持缓存
+    * @param url URL
+    * @param data 要发送的数据，可选
+    * @param cb 请求成功或者失败都是执行这个回调方法
+    * @param cacheTime number|callback
+    * @returns {*}
+    */
     function query(url, data, cb, cacheTime){
         if(!url) return false;
         if(!$.isPlainObject(data) && $.isFunction(data)){

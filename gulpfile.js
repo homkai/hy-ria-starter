@@ -6,11 +6,12 @@ var del = require('del');
 
 var DIST = './dist/';
 var DIST_APP = DIST + 'app/';
-var APP = './src/app/';
+var SRC = './src/';
+var APP = SRC + 'app/';
 
 gulp.task('clean', function () {
     del.sync(DIST);
-    gulp.src(['./src/index.html', './src/lib/**/*', './src/vendor/**/*'], {base: './src/'})
+    gulp.src(['./src/index.html', './src/lib/**/*', './src/mock/**/*', './src/vendor/**/*'], {base: './src/'})
         .pipe(gulp.dest(DIST));
 });
 
@@ -46,7 +47,8 @@ function handleDoT(path) {
 }
 
 gulp.task('watch', function (){
-    gulp.watch(APP + '**/*.js', function (vinyl) {
+    gulp.watch([SRC + '**/*.js', SRC + '**/*.json'], function (vinyl) {
+        console.log('watch copy', vinyl);
         handleCopy(vinyl.path);
     });
     gulp.watch(APP + '**/*.html', function (vinyl) {

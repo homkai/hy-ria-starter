@@ -12,11 +12,11 @@ define(function(require, exports, module){
     };
 
     // 有个铭牌，表示缓存是自家的数据，不要跟别人的缓存混淆了
-    let BRAND = 'hy-cache';
+    var BRAND = 'hy-cache';
 
     function isSupported(){
         try{
-            let ls = window.localStorage,
+            var ls = window.localStorage,
                 j = JSON;
             return (ls && ls.getItem && ls.setItem && ls.removeItem && j && j.parse && j.stringify);
         }catch(e){
@@ -37,7 +37,7 @@ define(function(require, exports, module){
             return false;
         }
         cacheTime = cacheTime + Time.now();
-        let save = {
+        var save = {
             value: value,
             cacheTime: cacheTime,
             version: version || 0,
@@ -56,7 +56,7 @@ define(function(require, exports, module){
         if(!isSupported()){
             return false;
         }
-        let save = JSON.parse(window.localStorage.getItem(BRAND + '_' + key));
+        var save = JSON.parse(window.localStorage.getItem(BRAND + '_' + key));
         if(!save || !save.brand || (save.brand !== BRAND)) return null;
         if(save.cacheTime < Time.now()){
             removeItem(key);
