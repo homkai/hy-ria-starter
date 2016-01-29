@@ -1,5 +1,5 @@
 # hy-ria-starter
-宏奕单页应用开发快速上手，主要目的在于帮助理解单页+路由+AJAX+模板引擎的开发思路
+宏奕单页应用开发快速上手，主要目的在于帮助理解单页+前端路由+AJAX与后台解耦+模板引擎的开发思路
 
 # Overview
 - hy-ria-starter是基于SeaJS、jQuery、Bootstrap建立起来的单页应用框架
