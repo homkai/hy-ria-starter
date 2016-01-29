@@ -5,56 +5,54 @@ var css = require('gulp-seajs-css');
 var del = require('del');
 
 var DIST = './dist/';
-var DIST_SRC = DIST + 'src/';
-var SRC = './src/';
+var DIST_APP = DIST + 'app/';
+var APP = './src/app/';
 
 gulp.task('clean', function () {
     del.sync(DIST);
-    gulp.src(['./lib/**/*'])
-        .pipe(gulp.dest(DIST + 'lib/'));
-    gulp.src(['./index.html'])
+    gulp.src(['./src/index.html', './src/lib/**/*', './src/vendor/**/*'], {base: './src/'})
         .pipe(gulp.dest(DIST));
 });
 
 gulp.task('copy', handleCopy);
 function handleCopy(path) {
-    path = typeof path === 'string' ? path : SRC + '**/*.js';
-    gulp.src(path, {base: SRC})
-        .pipe(gulp.dest(DIST_SRC));
+    path = typeof path === 'string' ? path : APP + '**/*.js';
+    gulp.src(path, {base: APP})
+        .pipe(gulp.dest(DIST_APP));
 }
 
 // CSS压缩、包装成seajs module
 gulp.task('css', handleCss);
 function handleCss(path) {
-    path = typeof path === 'string' ? path : SRC + '**/*.css';
-    gulp.src(path, {base: SRC})
+    path = typeof path === 'string' ? path : APP + '**/*.css';
+    gulp.src(path, {base: APP})
         .pipe(css({prefix: 'css_'}))
         .pipe(rename(function(path){
             path.basename = 'css_'+path.basename;
         }))
-        .pipe(gulp.dest(DIST_SRC));
+        .pipe(gulp.dest(DIST_APP));
 }
 
 // doT模板预编译、包装成seajs module
 gulp.task('dot', handleDoT);
 function handleDoT(path) {
-    path = typeof path === 'string' ? path : SRC + '**/*.html';
-    gulp.src(path, {base: SRC})
+    path = typeof path === 'string' ? path : APP + '**/*.html';
+    gulp.src(path, {base: APP})
         .pipe(dot({prefix: 'tpl_'}))
         .pipe(rename(function (path) {
             path.basename = 'tpl_' + path.basename;
         }))
-        .pipe(gulp.dest(DIST_SRC));
+        .pipe(gulp.dest(DIST_APP));
 }
 
 gulp.task('watch', function (){
-    gulp.watch(SRC + '**/*.js', function (vinyl) {
+    gulp.watch(APP + '**/*.js', function (vinyl) {
         handleCopy(vinyl.path);
     });
-    gulp.watch(SRC + '**/*.html', function (vinyl) {
+    gulp.watch(APP + '**/*.html', function (vinyl) {
         handleDoT(vinyl.path);
     });
-    gulp.watch(SRC + '**/*.css', function (vinyl) {
+    gulp.watch(APP + '**/*.css', function (vinyl) {
         handleCss(vinyl.path);
     });
 });

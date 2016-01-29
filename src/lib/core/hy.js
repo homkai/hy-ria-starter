@@ -13,7 +13,7 @@ define(function(require, exports, module){
         config: {
             route: {
                 default:{
-                    module: 'app',
+                    module: 'main',
                     action: 'run'
                 }
             },

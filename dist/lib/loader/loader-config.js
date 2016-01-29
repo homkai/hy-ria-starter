@@ -1,5 +1,5 @@
 seajs.config({
-    base: '/src/',
+    base: '/app/',
     paths:{
         _core: '/lib/core/'
     },

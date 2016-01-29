@@ -50,9 +50,11 @@
 - query方法，自动带上入口URL中query参数，统一成功和失败的回调，支持缓存
 
 # Structure
-- index.html 入口文件
-- lib 项目底层文件和第三方依赖
-- src 业务代码
+- src 项目源码
+    - index.html 入口文件
+    - lib 框架底层文件
+    - vendor 第三方依赖
+    - app 业务代码
 - dist 构建后的代码（自动生成）
 
 # FAQ
