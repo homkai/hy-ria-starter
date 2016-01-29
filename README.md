@@ -7,7 +7,7 @@
 - 基于hashchange实现强大而灵活的路由机制，有框架默认的路由规则，亦支持自定义路由规则
 - 支持module和action两级构造方法（_init）和析构方法（_destroy），编码更灵活
 - 提供了众多常用组件：url、time、cache、view、data等
-- URL无权访问到模板模块、_打头的path，如_core、_base等基础modules
+- URL无权访问到模板模块和_打头的path，如_core、_base等基础modules
 - 自动打包样式文件、模板文件为module（详见[gulp-seajs-css](https://github.com/homkai/gulp-seajs-css)、[gulp-seajs-dot](https://github.com/homkai/gulp-seajs-dot)），框架支持原生HTML和doT模板引擎，你也可以按自己的喜好进行扩展
 
 ## Start
@@ -15,11 +15,19 @@
 - npm run serve来启动web server（自动生成dist目录），默认为http://localhost:8001
 - npm run watch来监视文件改动
 - 使用?hyDebug=1参数开启调试模式
-- 业务逻辑文件放在app文件夹，请根据业务模块分子文件夹。
+- 业务逻辑文件放在src/app文件夹，请根据业务模块分子文件夹。
 
 ## Config
 - 在入口文件，seajs.use加载hy模块后，通过hy.run方法传入配置参数或者初始化回调方法
 - seajs相关配置在loader-config.js中完成
+
+# Structure
+- src 项目源码
+    - index.html 入口文件
+    - lib 框架底层文件
+    - vendor 第三方依赖
+    - app 业务代码
+- dist 构建后的代码（自动生成）
 
 # Core Module
 核心模块提供了对框架底层的支撑，助力开发更加便捷
@@ -48,14 +56,6 @@
 
 ## Data
 - query方法，自动带上入口URL中query参数，统一成功和失败的回调，支持缓存
-
-# Structure
-- src 项目源码
-    - index.html 入口文件
-    - lib 框架底层文件
-    - vendor 第三方依赖
-    - app 业务代码
-- dist 构建后的代码（自动生成）
 
 # FAQ
 Q: 从/module1/action1&id=123到/module1/action1&id=321会不会重新执行action1方法
