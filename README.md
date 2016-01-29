@@ -18,7 +18,7 @@
 - 业务逻辑文件放在src/app文件夹，请根据业务模块分子文件夹。
 
 ## Config
-- 在入口文件，seajs.use加载hy模块后，通过hy.run方法传入配置参数或者初始化回调方法
+- 在入口文件，seajs.use加载hy模块后，通过hy.init方法传入配置参数或者初始化回调方法
 - seajs相关配置在loader-config.js中完成
 
 # Structure
