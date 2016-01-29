@@ -2,7 +2,7 @@
 宏奕单页应用开发快速上手，主要目的在于帮助理解单页+路由+AJAX+模板引擎的开发思路
 
 # Overview
-- hy-ria-starter是基于seajs、jquery建立起来的单页应用框架
+- hy-ria-starter是基于SeaJS、jQuery、Bootstrap建立起来的单页应用框架
 - 内置事件机制，分global、module两个级别，可有效解决非全局事件未销毁带来的问题
 - 基于hashchange实现强大而灵活的路由机制，有框架默认的路由规则，亦支持自定义路由规则
 - 支持module和action两级构造方法（_init）和析构方法（_destroy），编码更灵活
@@ -12,7 +12,7 @@
 
 ## Start
 - 首先通过npm install安装依赖
-- npm run serve来启动web server（自动生成dist目录）
+- npm run serve来启动web server（自动生成dist目录），默认为http://localhost:8001
 - npm run watch来监视文件改动
 - 使用?hyDebug=1参数开启调试模式
 - 业务逻辑文件放在app文件夹，请根据业务模块分子文件夹。
@@ -52,7 +52,7 @@
 # Structure
 - index.html 入口文件
 - lib 项目底层文件和第三方依赖
-- app 业务代码
+- src 业务代码
 - dist 构建后的代码（自动生成）
 
 # FAQ
