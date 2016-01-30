@@ -11,8 +11,4 @@ define(function(require, exports, module){
         var tpl = require('./tpl_talk');
         $('#container').html(tpl.main());
     };
-
-    exports._destroy = function(){
-        console.log('archive/talk/_destroy', '模块后置');
-    };
 });
