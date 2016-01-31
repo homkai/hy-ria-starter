@@ -111,10 +111,10 @@ define(function(require, exports, module){
         }else if($.isFunction(config)){
             cb = config;
         }
-        function boot() {
+        function next() {
             // 启动路由
             Route.init(bindModule);
         }
-        $.isFunction(cb) ? cb(require, boot) : boot();
+        $.isFunction(cb) ? cb(require, next) : next();
     }
 });

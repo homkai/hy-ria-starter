@@ -20,7 +20,18 @@
 - 业务逻辑文件放在src/app文件夹，请根据业务模块分子文件夹。
 
 ## Config
-- 在入口文件，seajs.use加载hy模块后，通过hy.init方法传入配置参数或者初始化回调方法
+- 在入口文件，seajs.use加载hy模块后，通过hy.init(rootDom, config, callback)方法传入根容器、配置参数、初始化回调方法
+- config如下：
+```JavaScript
+    {
+        route: {
+            root: { //默认的首页路由
+                module: 'archive/home',
+                action: 'init'
+            }
+        }
+    }
+```
 - seajs相关配置在loader-config.js中完成
 
 # Structure
@@ -38,11 +49,13 @@
 - URL地址+[#!/module/action&arg1=value1&arg2=value2] 如http://localhost:8080/index.html?hyDebug=1#!/play/ssq/run&id=123
 - 即xx/xx/xx/.../xx 这组路由规则中最后一个是action，即module暴露的方法，前面的都是module，且与seajs的module概念一致
 - 如果不满意现有路由方案，可以配置route模块，或者重写route模块，route模块与hy框架对接使用dist格式：
+```JavaScript
     {
         rule: '规则',
         module: '需要加载的模块',
         action: '请求的方法'
     }
+```
 - Route.reg(rule, dist)实现自定义路由规则，rule支持关键字和正则两种形式，dist直接传对象也可以通过callback返回
 
 ## Event
@@ -69,10 +82,12 @@
 # FAQ
 Q: 从/module1/action1&id=123到/module1/action1&id=321会不会重新执行action1方法
 
+```
 A: 不会
+```
 
 Q: 从/module1/action1到/module2/action2，如何执行构造方法和析构方法
 
+```
 A: module1/action1_destroy -> module1/_destroy -> module2/_init -> module2/action2_init
-
-
+```
