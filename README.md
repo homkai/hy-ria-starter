@@ -62,6 +62,7 @@
 ```
 - route.reg(rule, dist)实现自定义路由规则，rule支持关键字和正则两种形式，dist直接传对象也可以通过callback返回
 - route.go(rule)，路由跳转，支持传hash或者dist
+- route.getParams([param])，获取当前路由下的hash参数，如#!/archive/article/list&topicId=2，route.getParams('topicId')
 - 默认在_base/view中，添加了dom属性data-go-route和data-go-route-reload（相同module/action时，参数不同会reload）的支持
 
 ## Event
