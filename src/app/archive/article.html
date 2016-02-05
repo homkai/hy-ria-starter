@@ -1,11 +1,11 @@
-<script export="main" type="text/template">
+<script export="list" type="text/template">
     <div class="container">
         <h3>列表页 - {{=it.topicName}}</h3>
         <div id="article-list"></div>
     </div>
 </script>
 
-<script export="list" type="text/template">
+<script export="list_articleList" type="text/template">
     {{ if (!it.articleList.length) { }}
     <p>该话题下，暂无文章！</p>
     {{ } }}

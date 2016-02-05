@@ -48,17 +48,17 @@ define(function(require, exports, module){
             topicList.forEach(function (item) {
                 item.id === topicId && (topicName = item.name);
             });
-            $('#container').html(tpl.main({topicName: topicName}));
+            $('#container').html(tpl.list({topicName: topicName}));
             // 初始化事件
             service.getArticleList(topicId, function (articleList) {
-                $('#article-list').html(tpl.list({articleList: articleList}));
+                $('#article-list').html(tpl.list_articleList({articleList: articleList}));
             });
         });
     };
 
     exports.detail = function(){
         console.log('article/detail', Date.now());
-        var articleId = route.getParams('articleId') - 0;
+        var articleId = route.getParams('articleId');
         service.getArticleDetail(articleId, function (article) {
             $('#container').html(tpl.detail(article));
         });
