@@ -6,7 +6,6 @@ var del = require('del');
 
 var DIST = './dist/';
 var DIST_APP = DIST + 'app/';
-
 var SRC = 'src/';
 var APP = SRC + 'app/';
 
