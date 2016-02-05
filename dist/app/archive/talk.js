@@ -1,14 +1,15 @@
 define(function(require, exports, module){
 
+    var app = require('_base/app');
+
     exports._init = function(){
         console.log('archive/talk/_init', '模块前置');
-        $('#navbar-nav li').removeClass('active');
-        $('#navbar-nav li[data-nav="talk"]').addClass('active');
+        app.setNavActive('talk');
     };
 
     exports.init = function(){
         console.log('archive/talk/init');
         var tpl = require('./tpl_talk');
-        $('#container').html(tpl.main());
+        $('#container').html(tpl);
     };
 });

@@ -1,0 +1,23 @@
+<script export="main" type="text/template">
+    <div class="container">
+        <h3>列表页 - {{=it.topicName}}</h3>
+        <div id="article-list"></div>
+    </div>
+</script>
+
+<script export="list" type="text/template">
+    {{ if (!it.articleList.length) { }}
+    <p>该话题下，暂无文章！</p>
+    {{ } }}
+    <ul class="article-list">
+        {{ it.articleList.forEach(function (item) { }}
+        <li><a href="javascript:;" data-trigger="goArticle" data-article-id="{{=item.id}}" data-article-closed="{{=item.closed}}">{{=item.title}}</a></li>
+        {{ }); }}
+    </ul>
+</script>
+
+<script export="detail" type="text/template">
+    <div class="container">
+        <h3>详情页 - {{=it.title}}</h3>
+    </div>
+</script>

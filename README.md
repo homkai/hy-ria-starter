@@ -1,7 +1,7 @@
 # hy-ria-starter
 宏奕单页应用开发快速上手，主要目的在于帮助理解单页+前端路由+AJAX与后台解耦+模板引擎的开发思路
 
-推荐基于此项目来完成个人博客的前端实现，从而就可以更好地理解框架的开发思路。万事开头难，为了更便于大家上手，已经完成了博客的一点基础效果，可供大家参考着摸索思路！，
+推荐基于此项目来完成个人博客的前端实现，从而就可以更好地理解框架的开发思路。万事开头难，为了更便于大家上手，已经完成了博客的一点基础效果，可供大家参考着摸索思路！
 
 # Overview
 - hy-ria-starter是基于SeaJS、jQuery、Bootstrap建立起来的单页应用框架
@@ -39,7 +39,9 @@
     - index.html 入口文件
     - lib 框架底层文件
     - vendor 第三方依赖
+        - images 图片放到这里，通过/vendor/images/*来引用
     - app 业务代码
+        - _base _config _service等，不想被路由到的模块，前面加“_”
 - dist 构建后的代码（自动生成）
 
 # Core Module
@@ -51,16 +53,21 @@
 - 如果不满意现有路由方案，可以配置route模块，或者重写route模块，route模块与hy框架对接使用dist格式：
 ```JavaScript
     {
-        rule: '规则',
-        module: '需要加载的模块',
-        action: '请求的方法'
+        rule: '', //规则，hash字符串或正则
+        module: '', //加载的模块
+        action: '', //请求的方法
+        params: {}, //hash参数
+        options: {} //配置
     }
 ```
-- Route.reg(rule, dist)实现自定义路由规则，rule支持关键字和正则两种形式，dist直接传对象也可以通过callback返回
+- route.reg(rule, dist)实现自定义路由规则，rule支持关键字和正则两种形式，dist直接传对象也可以通过callback返回
+- route.go(rule)，路由跳转，支持传hash或者dist
+- 默认在_base/view中，添加了dom属性data-go-route和data-go-route-reload（相同module/action时，参数不同会reload）的支持
 
 ## Event
 - module级别的：Event.on/emit/off，适合使用当前模块的一些消息传递，切换module的时候自动销毁，无需担心未销毁导致bug
 - global级别的：Event.onG/emitG/offG，适合用于整个APP的消息传递，需自行销毁事件，以防止污染
+- 默认在_base/view中，添加了dom属性data-trigger和data-trigger-g的支持
 
 ## Cache
 - 采用localStorage提供了对缓存的支持，setItem/getItem/removeItem *没有兼容不支持localStorage的情况*
@@ -83,7 +90,7 @@
 Q: 从/module1/action1&id=123到/module1/action1&id=321会不会重新执行action1方法
 
 ```
-A: 不会
+A: 不会，如果想重复执行，则route.go方法第二个配置参数传{reload:true}或者dist.reload=true，默认在_base/view中，添加了dom属性data-go-route-reload支持
 ```
 
 Q: 从/module1/action1到/module2/action2，如何执行构造方法和析构方法

@@ -1,15 +1,16 @@
 define(function(require, exports, module){
 
+    var app = require('_base/app');
+
     exports._init = function(){
         console.log('archive/home/_init', '模块前置');
-        $('#navbar-nav li').removeClass('active');
-        $('#navbar-nav li[data-nav="home"]').addClass('active');
+        app.setNavActive('home');
     };
 
     exports.init = function(){
         console.log('archive/home/init');
         var tpl = require('./tpl_home');
-        $('#container').html(tpl.main());
+        $('#container').html(tpl);
     };
 
     exports._destroy = function(){

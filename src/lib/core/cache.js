@@ -4,6 +4,8 @@
  */
 define(function(require, exports, module){
 
+    var time = require('time');
+
     module.exports = {
         getItem: getItem,
         setItem: setItem,
@@ -36,11 +38,12 @@ define(function(require, exports, module){
         if(!isSupported() || !cacheTime){
             return false;
         }
-        cacheTime = cacheTime + Time.now();
+        version = version || 0;
+        cacheTime = cacheTime + time.now();
         var save = {
             value: value,
             cacheTime: cacheTime,
-            version: version || 0,
+            version: version,
             brand: BRAND
         };
         window.localStorage.setItem(BRAND + '_' + key, JSON.stringify(save));
@@ -56,9 +59,11 @@ define(function(require, exports, module){
         if(!isSupported()){
             return false;
         }
+        version = version || 0;
         var save = JSON.parse(window.localStorage.getItem(BRAND + '_' + key));
         if(!save || !save.brand || (save.brand !== BRAND)) return null;
-        if(save.cacheTime < Time.now()){
+        if(save.version !== version) return null;
+        if(save.cacheTime < time.now()){
             removeItem(key);
             return null;
         }

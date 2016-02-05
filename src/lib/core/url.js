@@ -26,8 +26,8 @@ define(function(require, exports, module){
         if ('?' === arg.charAt(0) || '#' === arg.charAt(0)) {
             var params = {},
                 key = arg.split(arg.charAt(0))[1],
-                reg = '?' === arg.charAt(0) ? /.+\?([^#]+).*/ : /.+#(.+)/;
-            var query = url.replace(reg, "$1");
+                reg = '?' === arg.charAt(0) ? /.*\?([^#]+).*/ : /.*#(.+)/;
+            var query = reg.test(url) && url.replace(reg, "$1");
             if (query) {
                 var parts = query.split("&"), kv;
                 for (var i = 0, ii = parts.length; i < ii; i++) {

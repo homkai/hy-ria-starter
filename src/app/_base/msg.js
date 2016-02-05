@@ -13,8 +13,8 @@ define('msg', function(require, exports, module){
         hideLoading: hideLoading
     };
 
-    function notice(){
-
+    function notice(content){
+        alert(content);
     }
 
     function showDialog(){

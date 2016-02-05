@@ -4,48 +4,48 @@
  */
 define(function(require, exports, module){
 
-    var Cache = require('cache'),
-        URL = require('url');
+    var cache = require('cache'),
+        url = require('url');
 
     module.exports = {
         query: query
     };
 
     /**
-    * AJAX请求，会携带URL query信息，支持缓存
-    * @param url URL
+    * AJAX请求，会携带url query信息，支持缓存
+    * @param url url
     * @param data 要发送的数据，可选
     * @param cb 请求成功或者失败都是执行这个回调方法
     * @param cacheTime number|callback
     * @returns {*}
     */
-    function query(url, data, cb, cacheTime){
-        if(!url) return false;
+    function query(uri, data, cb, _cacheTime){
+        if(!uri) return false;
         if(!$.isPlainObject(data) && $.isFunction(data)){
-            cacheTime = cb;
+            _cacheTime = cb;
             cb = data;
             data = {};
         }
-        if(cacheTime && !$.isFunction(cacheTime)){
+        var cacheTime = _cacheTime;
+        if(_cacheTime && !$.isFunction(_cacheTime)){
             cacheTime = function(){
-                return cacheTime;
+                return _cacheTime;
             }
         }
         if(cacheTime){
-            var res = Cache.getItem(url);
+            var res = cache.getItem(uri);
             if(res){
                 return $.isFunction(cb) && cb(res);
             }
         }
-        // 携带URL基础query参数
-        data = $.extend({}, data, URL.get('?'));
+        // 携带url基础query参数
+        data = $.extend({}, data, url.get('?'));
         $.ajax({
-            url: url,
+            url: uri,
             data: data,
             success: function(res){
                 if(cacheTime){
-                    var cacheTime = cacheTime(res);
-                    Cache.setItem(url, res, cacheTime);
+                    cache.setItem(uri, res, cacheTime(res));
                 }
                 $.isFunction(cb) && cb(res);
             },

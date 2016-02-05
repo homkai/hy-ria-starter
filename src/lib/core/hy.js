@@ -20,52 +20,30 @@ define(function(require, exports, module){
         },
         rootDom: '',
         moduleEventDom: '#hy_module_event',
-        refer: {},
-        now: {}
+        route: {
+            refer: {},
+            now: {},
+            customRules: []
+        }
     };
     window.HY || (window.HY = HY);
 
-    var Route = require('route'),
-        URL = require('url'),
-        Event = require('event');
+    var base = require('./base');
+    var route = require('route');
+    var url = require('url');
 
-    function log(){
-        if(!window.console || !URL.get('?hyDebug')) return;
-        if(arguments.length > 1) arguments[0] += ' => ';
-        return console.log.apply(console, arguments);
-    }
-
-    function error(){
-        if(!window.console) return;
-        return console.error.apply(console, arguments);
-    }
-
-    function checkDist(dist){
-        if (!dist.module || !dist.action) {
-            return false;
-        }
-        dist.module.split('/').forEach(function (item) {
-            if (/^(_|tpl_|css_)/.test(item)) {
-                error('HY/module_checkDist:', 'Invalid module name ['+dist.module+']!');
-                return false;
-            }
-        });
-        return true;
-    }
-
-    function bindModule(){
+    function bindModule(dist){
         // 路由规则，分自定义规则和默认规则，由route模块实现
-        var dist = Route.custom() || Route.getDist();
+        dist = dist || route.getDist();
         if(!$.isPlainObject(dist)){
-            return error('HY/module_bind:', 'Can\'t find the matching route rule for this hash!');
+            return base.error('HY/module_bind:', 'Can\'t find the matching route rule for this hash!');
         }
         if(dist.isRoot && HY.config.route.root){
             dist = HY.config.route.root;
         }
-        if(!checkDist(dist)) return false;
-        // 当module或者action改变时才重新加载
-        if(dist.module === HY.now.module && dist.action === HY.now.action) return false;
-        if(dist.module !== HY.now.module){
+        // 当module或者action改变或者有reload:true时才重新加载
+        if(dist.module === HY.route.now.module && (dist.action === HY.route.now.action && !dist.options.reload)) return false;
+        if(dist.module !== HY.route.now.module){
             require.async('' + dist.module, function(module){
                 dist.exports = module;
                 dist.hash = location.hash;
@@ -73,8 +51,8 @@ define(function(require, exports, module){
                 $(HY.moduleEventDom).remove();
                 $(HY.rootDom).append('<section id="' + HY.moduleEventDom.split('#')[1] + '"></section>');
                 // 重置refer、now
-                var refer = HY.refer = HY.now;
-                var now = HY.now = dist;
+                var refer = HY.route.refer = $.extend({}, HY.route.now);
+                var now = HY.route.now = dist;
                 // 前置后置方法
                 if (refer.exports) {
                     $.isFunction(refer.exports[refer.action+'_destroy']) && refer.exports[refer.action+'_destroy']();
@@ -82,27 +60,30 @@ define(function(require, exports, module){
                 }
                 $.isFunction(now.exports['_init']) && now.exports['_init']();
                 $.isFunction(now.exports[now.action+'_init']) && now.exports[now.action+'_init']();
-                log('HY/module_ready', now.module+'->'+now.action);
-                if (!module[dist.action]) {
-                    return error('HY/module_bind:', 'Unknown module/action ['+dist.module+'/'+dist.action+']!')
+                base.log('HY/module_ready', now.module+'->'+now.action);
+                if (!module[now.action]) {
+                    return base.error('HY/module_bind:', 'Unknown module/action ['+now.module+'/'+now.action+']!')
                 }
-                module[dist.action]();
+                module[now.action]();
             });
         }else{
+            var now = HY.route.now;
+            now.action = dist.action;
+            now.params = dist.params;
             // 前置后置方法
-            $.isFunction(dist.exports[dist.action+'_destroy']) && dist.exports[dist.action+'_destroy']();
-            $.isFunction(dist.exports[dist.action+'_init']) && dist.exports[dist.action+'_init']();
-            log('HY/action_change', dist.module+'->'+dist.action);
-            if (!dist.exports[dist.action]) {
-                return error('HY/module_bind:', 'Unknown module/action ['+dist.module+'/'+dist.action+']!')
+            $.isFunction(now.exports[now.action+'_destroy']) && now.exports[now.action+'_destroy']();
+            $.isFunction(now.exports[now.action+'_init']) && now.exports[now.action+'_init']();
+            base.log('HY/action_change', now.module+'->'+now.action);
+            if (!now.exports[now.action]) {
+                return base.error('HY/module_bind:', 'Unknown module/action ['+now.module+'/'+now.action+']!')
             }
-            dist.exports[dist.action]();
+            now.exports[now.action]();
         }
     }
 
     function init(root, config, cb){
         if (!root || !$(root).size()) {
-            return error('HY/hy_init:', 'Root dom is not fund!');
+            return base.error('HY/hy_init:', 'Root dom is not fund!');
         }
         HY.rootDom = root;
         // 整合配置
@@ -113,7 +94,7 @@ define(function(require, exports, module){
         }
         function next() {
             // 启动路由
-            Route.init(bindModule);
+            route.init(bindModule);
         }
         $.isFunction(cb) ? cb(require, next) : next();
     }

@@ -25,9 +25,9 @@ define(function(require, exports, module){
 
     /**
      * 时间格式化
-     * @param ymdhiswx 为格式化匹配关键字 mm表示两位月份，m表示一位月份 d h i s类似
+     * @param format 为格式化匹配关键字 mm表示两位月份，m表示一位月份 d h i s类似，w为星期0-6，x为星期日-六，m_e为英文的月份 m_es为英文月份简写
      * @param timestamp
-     * @returns {XML|void|string}
+     * @returns {string}
      */
     function format(format, timestamp){
         var timestamp = (timestamp || now()), date = typeof timestamp === 'object' ? timestamp : new Date(timestamp);

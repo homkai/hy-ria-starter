@@ -1,0 +1,10 @@
+{
+  "errCode": 200,
+  "errMsg": "",
+  "data":{
+      "id": 1,
+      "title": "第一篇",
+      "content": "第一篇的内容",
+      "closed": 0
+  }
+}

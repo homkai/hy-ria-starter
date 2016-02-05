@@ -10,6 +10,7 @@ seajs.config({
         route: '_core/route.js?v=201601282344',
         time: '_core/time.js?v=201601282344',
         cache: '_core/cache.js?v=201601282344',
-        data: '_core/data.js?v=201601282344'
+        data: '_core/data.js?v=201601282344',
+        msg: '/app/_base/msg.js?v=201602051911'
     }
 });
