@@ -99,3 +99,8 @@ Q: 从/module1/action1到/module2/action2，如何执行构造方法和析构方
 ```
 A: module1/action1_destroy -> module1/_destroy -> module2/_init -> module2/action2_init
 ```
+
+# Exop
+- 使用hy-ria-starter练手的个人博客案例地址：
+- https://github.com/2944927590/myblog
+- https://github.com/sameenzn/sameenblog
