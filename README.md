@@ -90,7 +90,7 @@
 # Exop
 - 使用hy-ria-starter练手的个人博客git地址：
     - https://github.com/2944927590/myblog
-    - https://github.com/sameenzn/sameenblog
+    - https://github.com/sameenzm/sameenblog
 
 # FAQ
 Q: 从/module1/action1&id=123到/module1/action1&id=321会不会重新执行action1方法
