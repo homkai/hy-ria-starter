@@ -87,6 +87,11 @@
 - CSS格式 [gulp-seajs-css](https://github.com/homkai/gulp-seajs-css)
 - doT模板格式 [gulp-seajs-dot](https://github.com/homkai/gulp-seajs-dot)
 
+# Exop
+- 使用hy-ria-starter练手的个人博客git地址：
+    - https://github.com/2944927590/myblog
+    - https://github.com/sameenzn/sameenblog
+
 # FAQ
 Q: 从/module1/action1&id=123到/module1/action1&id=321会不会重新执行action1方法
 
